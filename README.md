@@ -23,7 +23,7 @@ drf_shablon/
 └── README.md            # Loyihaning o'zi haqida hujjatlar
 ```
 
-O‘rnatish
+1.O‘rnatish
 Reponi klonlash:
 
 ```plaintext
@@ -31,10 +31,26 @@ git clone <repository-url>
 cd drf_shablon
 ```
 
-Virtual muhit yaratish va faollashtirish:
+2.env example fayllardan nusxa olib env fayllarni to'ldirib chiqish
+3.docker konteynerlarini nomini o'zgartirib chiqish o'zingizga moslab
+4.docker konteynerni ishga tushirish:
 
+```plaintext
+docker-compose up --build -d
 ```
-python -m venv venv
-source venv/bin/activate  # (Windows uchun: venv\Scripts\activate)
 
+5.migratsiyalarni amalga oshirish:
+
+```plaintext
+docker-compose exec web python manage.py migrate
 ```
+
+6.superuser yaratish:
+
+```plaintext
+docker-compose exec web python manage.py createsuperuser
+```
+
+7.Loyihani ko‘rish:
+API server quyidagi manzilda ishlaydi:
+http://localhost:8000
