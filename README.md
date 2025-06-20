@@ -30,3 +30,11 @@ Reponi klonlash:
 git clone <repository-url>
 cd drf_shablon
 ```
+
+Virtual muhit yaratish va faollashtirish:
+
+```
+python -m venv venv
+source venv/bin/activate  # (Windows uchun: venv\Scripts\activate)
+
+```
