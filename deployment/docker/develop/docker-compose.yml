@@ -1,0 +1,85 @@
+services:
+  web:
+    build:
+      context: ../../../
+      dockerfile: deployment/docker/develop/Dockerfile
+    container_name: "project_name_web_container"
+    volumes:
+      - /var/www/project_name/static:/app/staticfiles
+      - /var/www/project_name/media:/app/media
+    env_file:
+      - ../../../envs/backend/.env
+      - ../../../envs/database/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - db
+      - celery_worker
+      - celery_beat
+    restart: always
+
+  redis:
+    image: "redis:7"
+    container_name: "project_name_redis-container"
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  db:
+    image: postgres:17
+    container_name: "project_name_postgres_container"
+    env_file:
+      - ../../../envs/database/.env
+    environment:
+      POSTGRES_DB: ${NAME}
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5440:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  celery_worker:
+    build:
+      context: ../../../
+      dockerfile: deployment/docker/develop/Dockerfile
+    container_name: "project_name_celery_worker_container"
+    command: celery -A core worker --loglevel=info
+    env_file:
+      - ../../../envs/backend/.env
+      - ../../../envs/database/.env
+    depends_on:
+      - redis
+      - db
+    restart: always
+
+  celery_beat:
+    build:
+      context: ../../../
+      dockerfile: deployment/docker/develop/Dockerfile
+    container_name: "project_name_celery_beat_container"
+    command: celery -A core beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    env_file:
+      - ../../../envs/backend/.env
+      - ../../../envs/database/.env
+    depends_on:
+      - redis
+      - db
+    restart: always
+
+volumes:
+  db_data:
+  static:
+  media:
