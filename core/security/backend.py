@@ -16,6 +16,9 @@ class BackendSecurity:
 
     CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 
+    TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
+    TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+
 
 backend_security = BackendSecurity()
 

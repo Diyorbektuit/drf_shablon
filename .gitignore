@@ -385,3 +385,5 @@ gunicorn_error_logs
 
 envs/develop/.env
 envs/production/.env
+
+take_backup.sql
