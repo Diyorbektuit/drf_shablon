@@ -12,6 +12,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      SECRET_KEY: your-secret-key
+      DEBUG: true
+      DJANGO_SETTINGS_MODULE: core.settings.develop
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
