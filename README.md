@@ -36,19 +36,20 @@ cd drf_shablon
 4.docker konteynerni ishga tushirish:
 
 ```plaintext
+cd deployment/docker/develop
 docker-compose up --build -d
 ```
 
 5.migratsiyalarni amalga oshirish:
 
 ```plaintext
-docker-compose exec web python manage.py migrate
+docker-compose exec project_name_web_container python manage.py migrate
 ```
 
 6.superuser yaratish:
 
 ```plaintext
-docker-compose exec web python manage.py createsuperuser
+docker-compose exec project_name_web_container python manage.py createsuperuser
 ```
 
 7.Loyihani ko‘rish:
