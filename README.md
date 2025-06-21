@@ -32,7 +32,9 @@ cd drf_shablon
 ```
 
 2.env example fayllardan nusxa olib env fayllarni to'ldirib chiqish
+
 3.docker konteynerlarini nomini o'zgartirib chiqish o'zingizga moslab
+
 4.docker konteynerni ishga tushirish:
 
 ```plaintext
