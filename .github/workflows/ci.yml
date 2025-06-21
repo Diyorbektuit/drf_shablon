@@ -21,20 +21,10 @@ jobs:
         with:
           python-version: 3.12.3
 
-      - name: Set up Docker Compose
+      - name: Install dependencies and Run Tests
         run: |
-          cd deployment/docker/develop
-          docker compose up --build -d
-          docker compose ps
-
-      - name: Run Django Tests
-        run: |
-          cd deployment/docker/develop
-          docker compose exec -T project_name_web_container python manage.py test
-
-      - name: Tear Down
-        if: always()
-        run: |
-          cd deployment/docker/develop
-          docker compose down --volumes
-          
+          python -m venv venv
+          source venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r requirements/develop.txt
+          python manage.py test
