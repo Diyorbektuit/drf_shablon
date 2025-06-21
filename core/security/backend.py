@@ -8,8 +8,8 @@ load_dotenv(f"{BASE_DIR}/envs/backend/.env")
 
 
 class BackendSecurity:
-    DJANGO_SETTINGS_MODULE = os.environ.get('DJANGO_SETTINGS_MODULE')
-    DJANGO_SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+    DJANGO_SETTINGS_MODULE = os.environ.get('DJANGO_SETTINGS_MODULE', "core.settings.develop")
+    DJANGO_SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "some_secret_key")
 
     REDIS_URL = os.environ.get('REDIS_URL')
     REDIS_KEY_PREFIX = os.environ.get('REDIS_KEY_PREFIX')
