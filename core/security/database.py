@@ -8,12 +8,12 @@ load_dotenv(f"{BASE_DIR}/envs/database/.env")
 
 
 class DatabaseSecurity:
-    ENGINE = os.environ.get('DB_ENGINE')
-    NAME = os.environ.get('DB_NAME')
-    USER = os.environ.get('DB_USER')
-    PASSWORD = os.environ.get('DB_PASSWORD')
-    HOST = os.environ.get('DB_HOST')
-    PORT = os.environ.get('DB_PORT')
+    ENGINE = os.environ.get('DB_ENGINE', "django.db.backends.postgresql")
+    NAME = os.environ.get('DB_NAME', "some_name")
+    USER = os.environ.get('DB_USER', "some_user")
+    PASSWORD = os.environ.get('DB_PASSWORD', "some_password")
+    HOST = os.environ.get('DB_HOST', "some_host")
+    PORT = os.environ.get('DB_PORT', 5432)
 
 
 database_security = DatabaseSecurity()
